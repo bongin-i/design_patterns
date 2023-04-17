@@ -26,7 +26,7 @@
 
 在讲解此模式时，书中共实现了五个类，分别是**迭代器接口（Iterator），具体的迭代器（ConcreteIterator），集合接口（Aggregate）（由实现该接口的集合返回迭代器），具体的集合（ConcreteAggregate）。集合中存储的类（<?>）。这也正是一个迭代器模式中登场的角色（要理解角色的意义）**在这种模式下的好处是将**遍历与实现分离开了**，迭代器不需要知道集合中的存储结构，集合中存储book（书中使用的具体的类）使用数组、vector、list都不会影响迭代器的遍历。在ArrayList和LinkedList中，迭代器是作为一个内部类创建的。因为在这种情况下数据结构是已知固定的，只是其中的数据类型不同，使用Iterator<>泛型来接收数据。
 
-## 1.2 Adapter模式（适配器模式）
+## 2.1 Adapter模式（适配器模式）
 
 Adapter模式分为两种：
 
@@ -42,4 +42,37 @@ Adapter模式分为两种：
 
 在不想修改现有代码或者版本更新了的情况下可以使用适配器模式
 
-## 1.3 
+## 3.1 Template Method模式（模板模式）
+
+在Template Method模式中，登场角色有**抽象类（AbstractClass），具体类（ConcreteClass）**。
+
+1. **抽象类（ AbstractClass）**：负责声明出需要实现的模板方法。
+2. **具体类（ConcreteClass）**：负责实现模板方法。
+
+## 4.1 Factory Method 模式（工厂模式）
+
+在Factory Method模式中，登场角色有**产品（Product），创建者（Creator），具体的产品（ConcreteProduct），具体的创建者（ ConcreteCreator）。**
+
+1. **产品（Product）**：一个抽象类，他定义了从工厂中创建出的具体的产品所具有的接口
+2. **创建者（Creator）**：一个最顶级的工厂，负责生成产品。
+3. **具体的创建者（ ConcreteCreator）**：用于生成具体的产品。
+4. **具体的产品（ConcreteProduct）**：被具体的创建者创建出的产品。
+
+这里所说的工厂模式是工厂方法模式。在工作中实现的工厂方法模式更多是只需要定义一个抽象的工厂接口或类，并在具体的工厂子类中实现工厂方法来创建不同类型的对象
+
+```java
+public class Factory implements IFactory {
+    @Override
+    public iProduct create(Integer type) {
+        if(type.equals("f1")) {
+            return new Product1();
+        } else if(type.equals("f2")) {
+            return new Product2();
+        } else {
+            // 可能是不存在的type，error
+        }
+}
+```
+
+书中的写法更加的解耦了，如果需要添加产品时不需要去修改具体的工厂类，只需要添加一个新的工厂类即可。
+
